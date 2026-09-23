@@ -1,0 +1,12 @@
+# Render Blueprint - lets Render auto-configure the service when you connect
+# this repo via "New +" -> "Blueprint". You can also skip this file entirely
+# and just create a "Web Service" by hand (see README) - either works.
+services:
+  - type: web
+    name: docushield
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    envVars:
+      - key: DOCUSHIELD_REGISTRY_MODE
+        value: local

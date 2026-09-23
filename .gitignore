@@ -1,0 +1,9 @@
+*.pyc
+__pycache__/
+.pytest_cache/
+.venv/
+data/*.db
+data/*.jsonl
+samples/*.jpg
+samples/*.png
+samples/manifest.json

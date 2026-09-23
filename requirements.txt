@@ -1,0 +1,21 @@
+# Core - everything the dashboard needs to run as a single process
+numpy>=1.26
+opencv-python-headless>=4.9
+Pillow>=10.0
+pytesseract>=0.3.10
+streamlit>=1.32
+
+# Testing
+pytest>=8.0
+
+# ---- Optional: only needed for the advanced two-service setup (a separately
+# hosted registry_service, see README "Advanced") - not required to run the
+# dashboard normally, and NOT installed by default to keep the deploy small.
+# requests>=2.31
+# fastapi>=0.110
+# uvicorn[standard]>=0.27
+# pydantic>=2.5
+
+# Optional (stretch): biometric-grade face matching
+# deepface>=0.0.93
+# tensorflow>=2.15
