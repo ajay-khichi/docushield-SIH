@@ -1,0 +1,3 @@
+# Streamlit server config - checked in on purpose (not a secrets file).
+[server]
+maxUploadSize = 20   # MB - matches the "20MB max document size" product decision

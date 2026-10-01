@@ -123,10 +123,27 @@ pytest -q
 rules, risk scoring and audit ledger, plus an integration test that runs the full
 pipeline end-to-end over all 11 demo scenarios and checks each lands in the right band.
 
+## Swapping in a real government API later
+
+`docushield/registry_client.py` is the *only* file that talks to the registry -
+OCR, validation, tamper detection, face match, risk scoring, and the dashboard
+never see a raw API response or know where the data came from; they only call
+`get_registry().verify(...)` and `get_registry().photo(...)` and read back a
+fixed internal shape (documented at the top of that file).
+
+To point at a real database (DigiLocker or otherwise) later: write one new
+adapter class in that file implementing the same 3 methods (`health`,
+`verify`, `photo`), add one line to `get_registry()` to select it, and set
+`DOCUSHIELD_REGISTRY_MODE` to that name. Full example with the exact field
+mapping is in the comment block at the bottom of `registry_client.py`. No
+other file needs to change.
+
 ## Configuration
 
 All thresholds and scoring weights live in `docushield/config.py` — nothing is hidden in
-a black box; officers/judges can see exactly how a score is produced.
+a black box; officers/judges can see exactly how a score is produced. Max upload size is
+20MB per file (`.streamlit/config.toml`); Tesseract-read scans of a single ID page are
+well under that, so this only ever rejects an accidentally-wrong file.
 
 ## Known limitations (called out on purpose, not hidden)
 
@@ -150,4 +167,3 @@ stage — everything is procedurally generated. Production deployment would add 
 encryption, role-based access control, full audit logging and a documented
 lawful-purpose basis under India's DPDP Act 2023 / DPDP Rules 2025 before touching any
 real citizen data — see `PS26188_Solution_Document.md` for the full compliance framing.
-# docushield-SIH
